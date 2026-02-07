@@ -4,14 +4,40 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
-    <title>title</title>
+    <meta charset="UTF-8">
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="~/css/Index.css"/>
 </head>
 <body>
 <div>
-    <p><span class="property">Email: </span>abbaslifarid2006@gmail.com</p>
-    <p><span class="property">Phone: </span>+994 050 537 72 65</p>
+    
+</div>
+<div class="container">
+    <div class="card">
+        <div class="front side">
+            <h1 class="logo" style="color: white">Farid Abbasli</h1>
+        </div>
+
+        <div class="back side">
+            <h3 class="name">Farid Abbasli</h3>
+            <div class="info">
+                <form asp-action="Send" method="post">
+                    <input name="Name" placeholder="Your name" required />
+                    <input name="Email" type="email" placeholder="Your email" required />
+                    <textarea name="Message" placeholder="Message" required></textarea>
+                    <button type="submit">Send</button>
+                </form>
+                <p><span class="property">Email: </span>abbaslifarid2006@gmail.com</p>
+                <p><span class="property">Phone: </span>+994 050 537 72 65</p>
+                <p><span class="property"><a asp-area="" asp-controller="Home" asp-action="Languages">Languages </a></span></p>
+                <p><span class="property"><a asp-area="" asp-controller="Home" asp-action="About">About Me </a></span></p>
+                <p><span class="property"><a href="https://github.com/farid-ss3945?tab=overview&from=2026-01-01&to=2026-01-31">See my Projects</a></span></p>
+            </div>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>

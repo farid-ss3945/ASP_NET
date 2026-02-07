@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Visit Card";
 }
 
 <!DOCTYPE html>
@@ -7,14 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Visit Card</title>
-    <link rel="stylesheet" href="Index.css"/>
+    <link rel="stylesheet" href="~/css/Index.css"/>
     
 </head>
 <body>
 
 <div class="container">
     <div class="card">
-    
         <div class="front side">
             <h1 class="logo" style="color: white">Farid Abbasli</h1>
         </div>
@@ -22,8 +21,10 @@
         <div class="back side">
             <h3 class="name">Farid Abbasli</h3>
             <div class="info">
-                <p><span class="property">Email: </span>abbaslifarid2006@gmail.com</p>
-                <p><span class="property">Phone: </span>+994 050 537 72 65</p>
+                <p><span class="property"><a asp-area="" asp-controller="Home" asp-action="About">About Me </a></span></p>
+                <p><span class="property"><a asp-area="" asp-controller="Home" asp-action="Languages">Languages</a></span></p>
+                <p><span class="property"><a asp-area="" asp-controller="Home" asp-action="Contact">Email</a> </span></p>
+                <p><span class="property"><a asp-area="" asp-controller="Home" asp-action="Contact">Phone</a> </span></p>
                 <p><span class="property"><a href="https://github.com/farid-ss3945?tab=overview&from=2026-01-01&to=2026-01-31">See my Projects</a></span></p>
             </div>
         </div>
