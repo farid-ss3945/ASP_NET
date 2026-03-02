@@ -1,0 +1,74 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using WebApplication5.DTOs;
+using WebApplication5.Models;
+using WebApplication5.Services.Interfaces;
+
+namespace WebApplication5.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class InvoicesController : ControllerBase
+    {
+        private readonly IInvoiceService _invoiceService;
+        public InvoicesController(IInvoiceService invoiceService)
+        {
+            _invoiceService = invoiceService;
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<InvoiceResponseDto>>> GetAll()
+        {
+            var invoices = await _invoiceService.GetAllAsync();
+            return Ok(invoices);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<InvoiceResponseDto>> GetById(int id)
+        {
+            var invoice = await _invoiceService.GetByIdAsync(id);
+            if (invoice is null)
+                return NotFound($"Project with ID {id} not found");
+            return Ok(invoice);
+        }
+        [HttpPost]
+        public async Task<ActionResult<InvoiceResponseDto>> Create(CreateInvoiceDto dto)
+        {
+            var invoice = await _invoiceService.CreateAsync(dto);
+            return Ok(invoice);
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<InvoiceResponseDto?>> Update(int id, CreateInvoiceDto dto)
+        {
+            var invoice = await _invoiceService.UpdateAsync(id, dto);
+            if (invoice == null)
+                return NotFound();
+            return Ok(invoice);
+        }
+        [HttpDelete("soft/{id}")]
+        public async Task<ActionResult> Archive(int id)
+        {
+            var invoice = await _invoiceService.ArchiveAsync(id);
+            if (invoice == false)
+                return NotFound();
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var invoice = await _invoiceService.DeleteAsync(id);
+            if (invoice == false)
+                return NotFound();
+            return NoContent();
+        }
+        [HttpPut("{id}/{status}")]
+        public async Task<IActionResult> ChangeStatus(int id, string status)
+        {
+            var invoice = await _invoiceService.ChangeStatusAsync(id,status);
+            if (invoice == null)
+            {
+                return NotFound();
+            }
+            return Ok(invoice);
+
+        }
+    }
+}
