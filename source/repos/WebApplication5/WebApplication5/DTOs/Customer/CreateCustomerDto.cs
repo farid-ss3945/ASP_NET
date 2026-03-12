@@ -1,8 +1,8 @@
-﻿namespace WebApplication5.DTOs
+﻿namespace WebApplication5.DTOs.Customer
 {
-    public class CustomerResponseDto
+    public class CreateCustomerDto
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; } = null!;
         public string? Address { get; set; }
         public string Email { get; set; } = null!;

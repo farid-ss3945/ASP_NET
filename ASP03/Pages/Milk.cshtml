@@ -1,0 +1,42 @@
+@page
+@model IndexModel
+@using ASP_NET_03._Dependency_Injection___services.Models
+
+@{
+    Layout = Layout;
+    var products = ViewData["Products"] as IEnumerable<Product>;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <div style="color: white;background-color: #0d6efd;font-family: Arial">
+        <h3 style="margin:10px 0 5px;">Milk</h3>
+        @foreach (var i in products!)
+        {
+            @if (i.Name == "Milk")
+            {
+                <p style="font-size:14px; color:white;font-family: Arial; margin:0 0 10px;">
+                    @i.Description;
+                </p>
+            }
+        }
+
+
+
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong>5.00 AZN</strong>
+            <button style="padding:5px 10px; cursor:pointer;">
+                Add To Cart
+            </button>
+            <button>Buy</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

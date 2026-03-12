@@ -1,7 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using WebApplication5.DTOs;
+using WebApplication5.DTOs.Customer;
+using WebApplication5.DTOs.Invoice;
+using WebApplication5.DTOs.User;
 using WebApplication5.Models;
-using System.Linq;
 
 namespace WebApplication5.Data
 {
@@ -27,7 +30,14 @@ namespace WebApplication5.Data
 
             CreateMap<InvoiceRow, InvoiceRowDto>();
 
-            CreateMap<WebApplication5.Models.InvoiceStatus, WebApplication5.DTOs.InvoiceStatus>().ReverseMap();
+            CreateMap<WebApplication5.Models.InvoiceStatus, DTOs.Invoice.InvoiceStatus>().ReverseMap();
+            CreateMap<RegisterDto, User>()
+                .ForMember(dest => dest.CreatedAt,opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt,opt => opt.Ignore());
+
+            CreateMap<User, UserResponseDto>();
+
+
         }
     }
 }

@@ -6,12 +6,13 @@ namespace WebApplication5.Data
 {
     public class InvoiceManagerDbContext:DbContext
     {
-        public InvoiceManagerDbContext(DbContextOptions options) : base(options)
+        public InvoiceManagerDbContext(DbContextOptions<InvoiceManagerDbContext> options) : base(options)
         {
         }
         public DbSet<Customer> Customers=>Set<Customer>();
         public DbSet<Invoice> Invoices => Set<Invoice>();
         public DbSet<InvoiceRow> InvoiceRows => Set<InvoiceRow>();
+        public DbSet<User> Users => Set<User>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +34,7 @@ namespace WebApplication5.Data
                     p.Property(p => p.CreatedAt).IsRequired();
                     p.Property(p => p.UpdatedAt);
                     p.Property(p => p.DeletedAt);
+
                 }
                 );
             modelBuilder.Entity<Invoice>(
@@ -66,6 +68,44 @@ namespace WebApplication5.Data
                     .WithMany(s => s.Rows)
                     .HasForeignKey(c => c.InvoiceId)
                     .OnDelete(DeleteBehavior.Cascade);
+                }
+                );
+            modelBuilder.Entity<User>(
+                u =>
+                {
+                    u.HasKey(u => u.Id);
+
+                    u.Property(u => u.Name)
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    u.Property(u => u.Address)
+                        .HasMaxLength(100);
+
+                    u.Property(u => u.Email)
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    u.HasIndex(u => u.Email)
+                        .IsUnique();
+
+                    u.Property(u => u.PhoneNumber)
+                        .HasMaxLength(50);
+
+                    u.Property(u => u.Password)
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    u.Property(u => u.CreatedAt)
+                        .IsRequired();
+
+                    u.Property(u => u.UpdatedAt);
+
+
+                    u.HasMany(p => p.Customers)
+                        .WithOne(u => u.User)
+                        .HasForeignKey(u => u.UserId)
+                        .OnDelete(DeleteBehavior.Cascade);
                 }
                 );
 

@@ -1,4 +1,4 @@
-﻿namespace WebApplication5.DTOs
+﻿namespace WebApplication5.DTOs.Invoice
 {
     public class InvoiceResponseDto
     {

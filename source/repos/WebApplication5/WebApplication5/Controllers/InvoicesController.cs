@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication5.DTOs;
+using WebApplication5.DTOs.Customer;
+using WebApplication5.DTOs.Invoice;
 using WebApplication5.Models;
+using WebApplication5.Services;
 using WebApplication5.Services.Interfaces;
 
 namespace WebApplication5.Controllers
@@ -57,7 +59,7 @@ namespace WebApplication5.Controllers
             var invoice = await _invoiceService.DeleteAsync(id);
             if (invoice == false)
                 return NotFound();
-            return NoContent();
+            return Ok("Deleted");
         }
         [HttpPut("{id}/{status}")]
         public async Task<IActionResult> ChangeStatus(int id, string status)
@@ -69,6 +71,15 @@ namespace WebApplication5.Controllers
             }
             return Ok(invoice);
 
+        }
+        [HttpGet("Paged")]
+        public async Task<ActionResult<IEnumerable<CustomerResponseDto>>> GetPaged(int page = 1,
+    int pageSize = 10,
+    string sortBy = "CreatedAt",
+    string sortOrder = "desc")
+        {
+            var invoices = await _invoiceService.GetPagedAsync(page, pageSize, sortBy, sortOrder);
+            return Ok(invoices);
         }
     }
 }
